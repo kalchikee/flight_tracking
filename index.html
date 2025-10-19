@@ -134,11 +134,37 @@
 
                 console.log("index.html()  in getLocation ...")
 
-                // Geolocation API
-                var endpoint = 'http://ip-api.com/json/?fields=status,message,lat,lon';
+                // Try browser's native geolocation first
+                if (navigator.geolocation) {
+                    console.log("index.html() using browser geolocation ...")
+                    navigator.geolocation.getCurrentPosition(
+                        function(position) {
+                            console.log("index.html() browser geolocation success")
+                            const locationData = {
+                                lat: position.coords.latitude,
+                                lon: position.coords.longitude,
+                                status: 'success'
+                            };
+                            showPosition(locationData);
+                        },
+                        function(error) {
+                            console.log("index.html() browser geolocation failed, trying IP API...")
+                            getLocationFromIP();
+                        }
+                    );
+                } else {
+                    console.log("index.html() browser geolocation not supported, using IP API...")
+                    getLocationFromIP();
+                }
+
+            } // end getLocation
+
+            // Fallback to IP-based geolocation
+            async function getLocationFromIP() {
+                // Geolocation API - use HTTPS for GitHub Pages compatibility
+                var endpoint = 'https://ip-api.com/json/?fields=status,message,lat,lon';
 
                 try {
-
                     // Get geolocation
                     console.log("index.html() fetching geolocation api ...")
                     const response = await fetch(endpoint)
@@ -149,19 +175,20 @@
                     console.log(json)
 
                     if(json.status != 'success') {
-                        console.error("index.html() Geolocation failed ... " + json.message)
-                    }
-
-                    else {
+                        console.error("index.html() IP Geolocation failed ... " + json.message)
+                        // Use default Madison coordinates
+                        showPosition({lat: 43.0731, lon: -89.4012, status: 'success'});
+                    } else {
                         showPosition(json)
                     }
 
                 }
                 catch (error) {
                     console.error("index.html() Error getting geolocation. " + error.stack)
+                    // Use default Madison coordinates as final fallback
+                    showPosition({lat: 43.0731, lon: -89.4012, status: 'success'});
                 }
-
-            } // end getLocation
+            }
            
             let marker, circle, mapZoomed, lat, lng
 
