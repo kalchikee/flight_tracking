@@ -137,8 +137,8 @@ const getNearbyAirports = async function () {
     try {
         console.log("getNearbyAirports() ...")
         
-        // Call AirLabs API for nearby airports - increased distance for better results
-        const api_url = `${AIRLABS_BASE_URL}/airports?lat=${myLatitude}&lng=${myLongitude}&distance=100&api_key=${AIRLABS_API_KEY}`
+        // Call AirLabs API for nearby airports using the correct nearby endpoint
+        const api_url = `${AIRLABS_BASE_URL}/nearby?lat=${myLatitude}&lng=${myLongitude}&distance=100&api_key=${AIRLABS_API_KEY}`
 
         console.log("getNearbyAirports() api_url: " + api_url)
        
@@ -147,7 +147,7 @@ const getNearbyAirports = async function () {
 
         console.log("Nearby airports:", json);
 
-        if (!json.response || json.response.length < 1) {
+        if (!json.response || !json.response.airports || json.response.airports.length < 1) {
             alert("No nearby airports found")
         } else {
             getNearbyAirportResults(json)
@@ -252,12 +252,12 @@ const getNearbyAirportResults = (json) => {
         var airportName = 'Unknown';
         var airportIataCode = 'N/A';
 
-        if (json.response && json.response.length > 0) {
+        if (json.response && json.response.airports && json.response.airports.length > 0) {
             // Find the first airport with a valid IATA code
             let foundAirport = null;
-            for (let i = 0; i < json.response.length; i++) {
-                if (json.response[i].iata_code && json.response[i].iata_code !== null) {
-                    foundAirport = json.response[i];
+            for (let i = 0; i < json.response.airports.length; i++) {
+                if (json.response.airports[i].iata_code && json.response.airports[i].iata_code !== null) {
+                    foundAirport = json.response.airports[i];
                     break;
                 }
             }
@@ -267,8 +267,8 @@ const getNearbyAirportResults = (json) => {
                 airportIataCode = foundAirport.iata_code
             } else {
                 // Use first airport even without IATA code
-                airportName = json.response[0].name
-                airportIataCode = json.response[0].icao_code || 'N/A'
+                airportName = json.response.airports[0].name
+                airportIataCode = json.response.airports[0].icao_code || 'N/A'
             }
             
             console.log("airport name: " + airportName + " iata_code: " + airportIataCode)
