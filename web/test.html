@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flight Tracking Test</title>
+</head>
+<body>
+    <h1>Flight Tracking Application Test</h1>
+    <p>Server Status: <span id="status">Testing...</span></p>
+    <p>Current Time: <span id="time"></span></p>
+    
+    <script>
+        // Test server connectivity
+        fetch('http://107.22.14.102:8000/hello')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('status').innerHTML = 'Server Online - ' + data.message;
+            })
+            .catch(error => {
+                document.getElementById('status').innerHTML = 'Server Error: ' + error;
+            });
+            
+        // Show current time
+        document.getElementById('time').innerHTML = new Date().toLocaleString();
+    </script>
+</body>
+</html>
