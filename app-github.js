@@ -166,11 +166,25 @@ const getNearbyAirports = async function () {
 console.log("Calling showFlights() ...")
 showFlights()
 
-console.log("Calling getNearbyAirports() ...")
-getNearbyAirports()
+// Don't call getNearbyAirports() immediately - wait for actual location
+// getNearbyAirports() will be called from showPosition() after location is determined
 
 console.log("Calling getFlights() ...")
 getFlights()
+
+// Function to update nearby airports after location is obtained
+window.updateNearbyAirports = function() {
+    console.log("updateNearbyAirports() called with updated location")
+    
+    // Update the lat/lng variables with current localStorage values
+    myLatitude = localStorage.getItem('latitude')
+    myLongitude = localStorage.getItem('longitude')
+    
+    console.log("updateNearbyAirports() using lat/lng: " + myLatitude + ", " + myLongitude)
+    
+    // Now call getNearbyAirports with updated coordinates
+    getNearbyAirports()
+}
 
 // Populate flight table with attributes
 const populateFlightTable = (json) => {

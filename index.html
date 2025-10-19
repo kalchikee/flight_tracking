@@ -231,6 +231,12 @@
                 // Save latitude and longitude to local storage
                 localStorage.setItem('latitude',`${latitude}`)
                 localStorage.setItem('longitude',`${longitude}`)
+                
+                // Update nearby airports now that we have the actual location
+                console.log("index.html() showPosition() calling updateNearbyAirports()...")
+                if (window.updateNearbyAirports) {
+                    window.updateNearbyAirports()
+                }
             
                 console.log("index.html() done with showPosition()...")
 
