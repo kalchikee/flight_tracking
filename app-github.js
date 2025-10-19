@@ -82,7 +82,7 @@ async function showFlights() {
                     `;
 
                     const marker = L.marker([flight.lat, flight.lng], {icon: planeIcon})
-                        .addTo(map)
+                        .addTo(window.map)
                         .bindPopup(popupContent);
                 }
             }

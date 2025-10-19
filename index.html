@@ -97,12 +97,13 @@
             var scriptName = "index.html: "
             console.log(scriptName + " starting .....")
 
-            var map = L.map('map').setView([43.505, -89.09], 13);
+            // Make map global so app-github.js can access it
+            window.map = L.map('map').setView([43.505, -89.09], 13);
 
             L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     maxZoom: 19,
                     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                }).addTo(map);
+                }).addTo(window.map);
 
 
             // Get Location of User
@@ -208,24 +209,24 @@
                 console.log("index.html() showPosition() latitude: " + latitude + " longitude: " + longitude)
 
                 console.log("index.html() showPosition() setting marker and circle ...")
-                marker = L.marker([latitude, longitude]).addTo(map)
-                circle = L.circle([latitude, longitude], {radius:1000}).addTo(map)
+                marker = L.marker([latitude, longitude]).addTo(window.map)
+                circle = L.circle([latitude, longitude], {radius:1000}).addTo(window.map)
 
                 console.log("index.html() showPosition() setting mapview ...")
 
                 // Set Map to Current Lat/Lon
-                map.setView([latitude, longitude])
+                window.map.setView([latitude, longitude])
               
                 console.log("index.html() showPosition() lat/lng: " + latitude + " " + longitude)
                 console.log("index.html() showPosition() setting up local storage variable .... ")
 
                 if (!mapZoomed) {
 
-                    mapZoomed = map.fitBounds(circle.getBounds())
+                    mapZoomed = window.map.fitBounds(circle.getBounds())
                 }
 
                 console.log(scriptName + " Setting map view to: " + latitude + " " + longitude)
-                map.setView([latitude, longitude])
+                window.map.setView([latitude, longitude])
 
                 // Save latitude and longitude to local storage
                 localStorage.setItem('latitude',`${latitude}`)
