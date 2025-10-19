@@ -7025,3 +7025,6 @@ server.js: /flights/:airport_code():   length of airport code: 3
  +++++++++ calling runQueries() +++++++++++++++
  +++++++++ completed runQueries() +++++++++++++++
 server.js: /flights/:airport_code():  ++++++++++++ done with getFlights airport code: ++++++++++++++MSN
++++++++++ in app.use() +++++++++++ 
+fetch_server: origin: undefined
+ origin is NOT included: undefined
