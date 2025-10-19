@@ -35,35 +35,6 @@ flight_tracking/
 └── .env                   # Environment variables (not in repo)
 ```
 
-## Installation & Setup 🚀
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/kalchikee/flight_tracking.git
-   cd flight_tracking
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Configure environment variables**
-   Create a `.env` file with:
-   ```
-   flightsAPIKey=your_airlabs_api_key_here
-   nearbyAirportDistance=25
-   defaultAirportCode=MSN
-   ```
-
-4. **Start the server**
-   ```bash
-   npm start
-   ```
-
-5. **Access the application**
-   Open `http://your-server-ip/` in a web browser
-
 ## API Endpoints 🔗
 
 - `GET /hello` - Health check endpoint
