@@ -40,6 +40,13 @@ async function showFlights() {
     try {
         console.log("showFlights(): calling AirLabs API directly")
         
+        // Check if map is available
+        if (!window.map) {
+            console.log("showFlights(): Map not ready, waiting 1 second...")
+            setTimeout(showFlights, 1000);
+            return;
+        }
+        
         // Call AirLabs API directly for flights
         const flightURL = `${AIRLABS_BASE_URL}/flights?dep_iata=${defaultAirportCode}&api_key=${AIRLABS_API_KEY}`
         console.log("flightURL: " + flightURL)
