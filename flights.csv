@@ -1,0 +1,4 @@
+id,time_stamp,reg_number,alt,dir,speed,lat,lng,dep_iata,flight_icao,status
+1,10/27/2025 00:01:51,N563NN,9164,291,766,41.586461,-81.642545,PHL,AAL5373,en-route
+2,10/27/2025 00:01:51,N408YX,338,183,239,43.163707,-89.340372,LGA,RPA4625,en-route
+3,10/27/2025 00:01:51,N819UA,733,214,321,43.261221,-89.315988,ORD,UAL739,en-route
